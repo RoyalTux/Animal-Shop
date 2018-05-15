@@ -1,22 +1,7 @@
 use animals
 go
 
-drop table cities;--города
-drop table office;--оффис 
-drop table adress;
-drop table orders;--заказы
-drop table animals;--животные
-drop table stock;--акции
-drop table purchase;--покупка
-drop table is_diseased;--болеет ли
-drop table disease;--болезнь
-drop table treatment;--лечение
-drop table staff;--сотрудники
-drop table customer;--клиент
-drop table species;--вид
-drop table supplier;--поставщик
-
-create table supplier --поставщик
+create table supplier --РїРѕСЃС‚Р°РІС‰РёРє
 (
   supplierid int not null,
   suppliername varchar(32) not null unique,
@@ -26,58 +11,52 @@ create table supplier --поставщик
   primary key(supplierid)
 );
 
-create table species --виды
+create table animals --Р¶РёРІРѕС‚РЅС‹Рµ
 (
-  speciesid int not null ,
-  speciestype varchar(32) not null unique,
-  speciesprice int not null,
-  cagesize varchar(20) not null,
-  speciesinstructs varchar(100) not null,
+  animalsid int not null ,
+  animalsname varchar(32) not null unique,
+  animalsprice int not null,
+  animalsinstructs varchar(100) not null,
   vetcertificate varchar(20),
   units int not null,
   
-  primary key(speciesid)
+  primary key(animalsid)
 );
 
-create table customer --клиент
+create table customer --РєР»РёРµРЅС‚
 (
   customerid int not null,
   customername varchar(32) not null,
   customeremail varchar(32) not null,
- -- customeraddress varchar(50) not null,
   
-  primary key(customerid)
-  
+  primary key(customerid) 
 );
 create table cities
 (
-
-	id  int not null primary key,
+	citiesid  int not null,
 	citname varchar(32) not null
+
+	primary key(citiesid)
 );
 
 create table office
 (
-	id int not null identity(1,1) primary key,
-	--customerid int not null,
-	--foreign key(customerid) references customer(customerid),
+	officeid int not null primary key,
 	numberOffice int not null,
 	street varchar(32) not null,
 	numstreet int not null,
-	cityid int not null foreign key references cities(id)
+	cityid int not null 
+	foreign key references cities(citiesid)
 );
 
 create table adress
 (
-		id int not null identity(1,1) primary key,
-		customerid int not null,
-	foreign key(customerid) references customer(customerid),
+	adressid int not null primary key,
 	officeid int not null,
-	foreign key(officeid) references office(id)
+	foreign key(officeid) references office(officeid),
 )
 
-
-create table staff --сотрудники
+create table staff --РїСЂРѕРґР°РІРµС†
 (
   staffid int not null,
   staffname varchar(32) not null,
@@ -85,92 +64,63 @@ create table staff --сотрудники
   primary key(staffid)
 );
 
-
-
-create table treatment --лечение
+create table disease --Р±РѕР»РµР·РЅСЊ
 (
-  treatmentnumber int not null,
-  treatmentresult varchar(20) ,
-  
-  primary key(treatmentnumber)
-);
-
-
-create table disease --болезнь
-(
-
-  diseasename varchar(20),
+  diseasename varchar(20) not null,
   diseasedesc varchar(40) not null,
   
   primary key(diseasename)
 );
 
-create table is_diseased --болеет ли
+create table vaccination --РІР°РєС†РёРЅР°С†РёСЏ
 (
-
-  isdiseased int not null,
-  treatmentnumber int,
-  diseasename varchar(20),
+  vaccinationid int not null,
+  diseasename varchar(20) not null,
+  vaccinationname varchar(20),
   
-  primary key(isdiseased),
-  foreign key(treatmentnumber) references treatment(treatmentnumber),
+  primary key(vaccinationid),
   foreign key(diseasename) references disease(diseasename)
 );
-drop table purchase
-create table purchase --покупка
-(
-   purchaseid int not null,
-   staffid int not null,
-   customerid int not null,
-   
-   primary key(purchaseid),
-   foreign key(staffid) references staff(staffid),
-   foreign key(customerid) references customer(customerid)
-   foreign key(animalid) references ani,al(animalid)
-);
 
-create table stock --акции
+create table stock --Р°РєС†РёРё
 (
   stockid int not null,
   stockname varchar(32) not null,
   sotckdesc varchar(50) not null,
   stockprice int not null,
-  stocklevels int not null,
-  purchaseid int,
+  stocknumber int not null,
   
   primary key(stockid),
-  foreign key(purchaseid) references purchase(purchaseid)
 );
 
-
-create table animals --животные
+create table basket --РєРѕСЂР·РёРЅР°
 (
-  animalid int not null,
-  --purchaseid int,
-  animalname varchar(32),
-  speciesid int not null,
-  isdiseased int not null,
-  animaltype varchar(32) not null,
-  
-  
-  primary key(animalid),
-  foreign key(speciesid) references species(speciesid),
-  foreign key(isdiseased) references is_diseased(isdiseased),
- -- foreign key(purchaseid) references purchase(purchaseid)
-);
+   basketid int not null,
+   animalid int not null,
+   stockid int,
+   supplierid int,
+   numberofunits int not null,
+   vaccinationid int not null,
 
-create table orders --заказы
+   primary key(basketid),
+   foreign key(supplierid) references supplier(supplierid),
+   foreign key(animalid) references animals(animalsid),
+   foreign key(stockid) references stock(stockid),
+   foreign key(vaccinationid) references vaccination(vaccinationid)
+);
+create table orders --Р·Р°РєР°Р·С‹
 (
   ordernumber int not null,
-  speciesid int,
-  stockid int,
-  supplierid int,
+  basketid int not null,
+  customerid int not null,
+  animalsid int,
   staffid int not null,
-  numberofunits int ,
-  numberofspecies int ,
-  
-  foreign key(stockid) references stock(stockid),
+  adressid int not null,
+
+  primary key(ordernumber),
   foreign key(staffid) references staff(staffid),
-  foreign key(supplierid) references supplier(supplierid),
-  foreign key(speciesid) references species(speciesid)
+  foreign key(basketid) references basket(basketid),
+  foreign key(customerid) references customer(customerid),
+  foreign key(animalsid) references animals(animalsid),
+  foreign key(adressid) references adress(adressid)
 );
