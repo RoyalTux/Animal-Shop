@@ -1,6 +1,6 @@
 use animals
 go
---процедура добвления поставщика
+--РїСЂРѕС†РµРґСѓСЂР° РґРѕР±РІР»РµРЅРёСЏ РїРѕСЃС‚Р°РІС‰РёРєР°
 create procedure insert_supplier
   @supplierid int,
   @suppliername varchar(32),
@@ -10,43 +10,44 @@ create procedure insert_supplier
   insert supplier(supplierid, suppliername, supplieraddress, supplieremail)
   values(@supplierid, @suppliername, @supplieraddress, @supplieremail)
 
-  exec insert_supplier @supplierid = 101, @suppliername = 'Зоо сказки',
-  @supplieraddress = 'ул. канатная 134', @supplieremail = 'zoo_fairytales@gmail.com'
-  exec insert_supplier @supplierid = 102, @suppliername = 'Рыбный мастер',
-  @supplieraddress = 'ул. приморская 23', @supplieremail = 'fish_masters@gmail.com'
-  exec insert_supplier @supplierid = 103, @suppliername = 'Домашний любимец',
-  @supplieraddress = 'ул. питерсона 33', @supplieremail = 'pet_stop@gmail.com'
-  exec insert_supplier @supplierid = 104, @suppliername = 'В гостях у зверюшек',
-  @supplieraddress = 'ул. зверинная 13', @supplieremail = 'animal_nation@gmail.com'
-  exec insert_supplier @supplierid = 105, @suppliername = 'Бутик для зайчиков',
-  @supplieraddress = 'ул. коноплянная 7', @supplieremail = 'veed_goods@gmail.com'
-
---животные
+  exec insert_supplier @supplierid = 101, @suppliername = 'Р—РѕРѕ СЃРєР°Р·РєРё',
+  @supplieraddress = 'СѓР». РєР°РЅР°С‚РЅР°СЏ 134', @supplieremail = 'zoo_fairytales@gmail.com'
+  exec insert_supplier @supplierid = 102, @suppliername = 'Р С‹Р±РЅС‹Р№ РјР°СЃС‚РµСЂ',
+  @supplieraddress = 'СѓР». РїСЂРёРјРѕСЂСЃРєР°СЏ 23', @supplieremail = 'fish_masters@gmail.com'
+  exec insert_supplier @supplierid = 103, @suppliername = 'Р”РѕРјР°С€РЅРёР№ Р»СЋР±РёРјРµС†',
+  @supplieraddress = 'СѓР». РїРёС‚РµСЂСЃРѕРЅР° 33', @supplieremail = 'pet_stop@gmail.com'
+  exec insert_supplier @supplierid = 104, @suppliername = 'Р’ РіРѕСЃС‚СЏС… Сѓ Р·РІРµСЂСЋС€РµРє',
+  @supplieraddress = 'СѓР». Р·РІРµСЂРёРЅРЅР°СЏ 13', @supplieremail = 'animal_nation@gmail.com'
+  exec insert_supplier @supplierid = 105, @suppliername = 'Р‘СѓС‚РёРє РґР»СЏ Р·Р°Р№С‡РёРєРѕРІ',
+  @supplieraddress = 'СѓР». РєРѕРЅРѕРїР»СЏРЅРЅР°СЏ 7', @supplieremail = 'veed_goods@gmail.com'
+  
+--Р¶РёРІРѕС‚РЅС‹Рµ
 create procedure insert_animals
 @animalsid int,
+@supplierid int,
 @animalsname varchar(32),
 @animalsprice int,
 @animalsinstructs varchar(100),
 @vetcertificate varchar(20),
 @units int
 as
-insert animals(animalsid,animalsname,animalsprice,animalsinstructs,vetcertificate,units)
-values(@animalsid,@animalsname,@animalsprice,@animalsinstructs,@vetcertificate,@units)
+insert animals(animalsid,supplierid,animalsname,animalsprice,animalsinstructs,vetcertificate,units)
+values(@animalsid,@supplierid,@animalsname,@animalsprice,@animalsinstructs,@vetcertificate,@units)
 
-exec insert_animals @animalsid = 101, @animalsname = 'пинчер', @animalsprice = 300, 
-@animalsinstructs = 'кормить 2 раза в день', @vetcertificate = 'да', @units = 3
-exec insert_animals @animalsid = 102, @animalsname = 'кролик', @animalsprice = 450, 
-@animalsinstructs = 'кормить 5 раза в день', @vetcertificate = 'да', @units = 5
-exec insert_animals @animalsid = 103, @animalsname = 'волнистый попугай', @animalsprice = 200, 
-@animalsinstructs = 'кормить 2 раза в день', @vetcertificate = 'нет', @units = 8
-exec insert_animals @animalsid = 104, @animalsname = 'хомячок', @animalsprice = 500, 
-@animalsinstructs = 'кормить 5 раза в день', @vetcertificate = 'да', @units = 20
-exec insert_animals @animalsid = 105, @animalsname = 'белая мышь', @animalsprice = 750, 
-@animalsinstructs = 'кормить 4 раза в день', @vetcertificate = 'нет', @units = 30
-exec insert_animals @animalsid = 106, @animalsname = 'дог', @animalsprice = 230, 
-@animalsinstructs = 'кормить 3 раза в день', @vetcertificate = 'да', @units = 5
+exec insert_animals @animalsid = 101,@supplierid = 101, @animalsname = 'РїРёРЅС‡РµСЂ', @animalsprice = 300, 
+@animalsinstructs = 'РєРѕСЂРјРёС‚СЊ 2 СЂР°Р·Р° РІ РґРµРЅСЊ', @vetcertificate = 'РґР°', @units = 3
+exec insert_animals @animalsid = 102,@supplierid = 101, @animalsname = 'РєСЂРѕР»РёРє', @animalsprice = 450, 
+@animalsinstructs = 'РєРѕСЂРјРёС‚СЊ 5 СЂР°Р·Р° РІ РґРµРЅСЊ', @vetcertificate = 'РґР°', @units = 5
+exec insert_animals @animalsid = 103,@supplierid = 101, @animalsname = 'РІРѕР»РЅРёСЃС‚С‹Р№ РїРѕРїСѓРіР°Р№', @animalsprice = 200, 
+@animalsinstructs = 'РєРѕСЂРјРёС‚СЊ 2 СЂР°Р·Р° РІ РґРµРЅСЊ', @vetcertificate = 'РЅРµС‚', @units = 8
+exec insert_animals @animalsid = 104,@supplierid = 101, @animalsname = 'С…РѕРјСЏС‡РѕРє', @animalsprice = 500, 
+@animalsinstructs = 'РєРѕСЂРјРёС‚СЊ 5 СЂР°Р·Р° РІ РґРµРЅСЊ', @vetcertificate = 'РґР°', @units = 20
+exec insert_animals @animalsid = 105,@supplierid = 101, @animalsname = 'Р±РµР»Р°СЏ РјС‹С€СЊ', @animalsprice = 750, 
+@animalsinstructs = 'РєРѕСЂРјРёС‚СЊ 4 СЂР°Р·Р° РІ РґРµРЅСЊ', @vetcertificate = 'РЅРµС‚', @units = 30
+exec insert_animals @animalsid = 106,@supplierid = 101, @animalsname = 'РґРѕРі', @animalsprice = 230, 
+@animalsinstructs = 'РєРѕСЂРјРёС‚СЊ 3 СЂР°Р·Р° РІ РґРµРЅСЊ', @vetcertificate = 'РґР°', @units = 5
 
-  --клиенты
+  --РєР»РёРµРЅС‚С‹
 create procedure insert_customer
 @customerid int,
 @customername varchar(32),
@@ -55,13 +56,13 @@ as
 insert customer(customerid, customername, customeremail)
 values(@customerid, @customername, @customeremail)
 
-exec insert_customer @customerid = 101, @customername = 'Кирилл Петров', @customeremail = 'kirill_petrov@gmail.com'
-exec insert_customer @customerid = 102, @customername = 'Мария Черная', @customeremail = 'mary_black@gmail.com'
-exec insert_customer @customerid = 103, @customername = 'Кристина Зайцева', @customeremail = 'kris_zai@gmail.com'
-exec insert_customer @customerid = 104, @customername = 'Пуся Муся', @customeremail = 'p_m@gmail.com'
-exec insert_customer @customerid = 105, @customername = 'Джон Сина', @customeremail = 'd_sina@gmail.com'
+exec insert_customer @customerid = 101, @customername = 'РљРёСЂРёР»Р» РџРµС‚СЂРѕРІ', @customeremail = 'kirill_petrov@gmail.com'
+exec insert_customer @customerid = 102, @customername = 'РњР°СЂРёСЏ Р§РµСЂРЅР°СЏ', @customeremail = 'mary_black@gmail.com'
+exec insert_customer @customerid = 103, @customername = 'РљСЂРёСЃС‚РёРЅР° Р—Р°Р№С†РµРІР°', @customeremail = 'kris_zai@gmail.com'
+exec insert_customer @customerid = 104, @customername = 'РџСѓСЃСЏ РњСѓСЃСЏ', @customeremail = 'p_m@gmail.com'
+exec insert_customer @customerid = 105, @customername = 'Р”Р¶РѕРЅ РЎРёРЅР°', @customeremail = 'd_sina@gmail.com'
 
-  --акции
+  --Р°РєС†РёРё
 create procedure insert_stock
 @stockid int,
 @stockname varchar(32),
@@ -72,18 +73,18 @@ as
 insert stock(stockid, stockname, sotckdesc, stockprice, stocknumber)
 values(@stockid, @stockname, @sotckdesc, @stockprice, @stocknumber)
 
-exec insert_stock @stockid = 101, @stockname = 'дом для пернатых', @sotckdesc = 'клетка', 
+exec insert_stock @stockid = 101, @stockname = 'РґРѕРј РґР»СЏ РїРµСЂРЅР°С‚С‹С…', @sotckdesc = 'РєР»РµС‚РєР°', 
 @stockprice = 444, @stocknumber = 5
-exec insert_stock @stockid = 102, @stockname = 'аквариумы только сегодня', @sotckdesc = 'аквариум + корм', 
+exec insert_stock @stockid = 102, @stockname = 'Р°РєРІР°СЂРёСѓРјС‹ С‚РѕР»СЊРєРѕ СЃРµРіРѕРґРЅСЏ', @sotckdesc = 'Р°РєРІР°СЂРёСѓРј + РєРѕСЂРј', 
 @stockprice = 550, @stocknumber = 3
-exec insert_stock @stockid = 103, @stockname = 'скидка на корм', @sotckdesc = 'еда для кошек', 
+exec insert_stock @stockid = 103, @stockname = 'СЃРєРёРґРєР° РЅР° РєРѕСЂРј', @sotckdesc = 'РµРґР° РґР»СЏ РєРѕС€РµРє', 
 @stockprice = 230, @stocknumber = 15
-exec insert_stock @stockid = 104, @stockname = 'лекарства плюс', @sotckdesc = 'аптечка для собаки', 
+exec insert_stock @stockid = 104, @stockname = 'Р»РµРєР°СЂСЃС‚РІР° РїР»СЋСЃ', @sotckdesc = 'Р°РїС‚РµС‡РєР° РґР»СЏ СЃРѕР±Р°РєРё', 
 @stockprice = 220, @stocknumber = 20
-exec insert_stock @stockid = 105, @stockname = 'whiskas', @sotckdesc = 'кошачий супчик', 
+exec insert_stock @stockid = 105, @stockname = 'whiskas', @sotckdesc = 'РєРѕС€Р°С‡РёР№ СЃСѓРїС‡РёРє', 
 @stockprice = 111, @stocknumber = 3
 
---сотрудники
+--СЃРѕС‚СЂСѓРґРЅРёРєРё
 create procedure insert_staff
 @staffid int,
 @staffname varchar(32)
@@ -91,10 +92,10 @@ as
 insert staff(staffid, staffname)
 values(@staffid, @staffname)
 
-exec insert_staff @staffid = 101, @staffname = 'Вася Пупкин'
-exec insert_staff @staffid = 102, @staffname = 'Козел Козлович'
+exec insert_staff @staffid = 101, @staffname = 'Р’Р°СЃСЏ РџСѓРїРєРёРЅ'
+exec insert_staff @staffid = 102, @staffname = 'РљРѕР·РµР» РљРѕР·Р»РѕРІРёС‡'
 
---болезни
+--Р±РѕР»РµР·РЅРё
 create procedure insert_disease
 @diseasename varchar(20),
 @diseasedesc varchar(40)
@@ -102,11 +103,11 @@ as
 insert disease(diseasename, diseasedesc)
 values(@diseasename, @diseasedesc)
 
-exec insert_disease @diseasename = 'отраление', @diseasedesc = 'некачественная еда'
-exec insert_disease @diseasename = 'простуда', @diseasedesc = 'вирусы и бактерии'
-exec insert_disease @diseasename = 'бешенство', @diseasedesc = 'вирусная болезнь, вызывает инфляцию'
+exec insert_disease @diseasename = 'РѕС‚СЂР°Р»РµРЅРёРµ', @diseasedesc = 'РЅРµРєР°С‡РµСЃС‚РІРµРЅРЅР°СЏ РµРґР°'
+exec insert_disease @diseasename = 'РїСЂРѕСЃС‚СѓРґР°', @diseasedesc = 'РІРёСЂСѓСЃС‹ Рё Р±Р°РєС‚РµСЂРёРё'
+exec insert_disease @diseasename = 'Р±РµС€РµРЅСЃС‚РІРѕ', @diseasedesc = 'РІРёСЂСѓСЃРЅР°СЏ Р±РѕР»РµР·РЅСЊ, РІС‹Р·С‹РІР°РµС‚ РёРЅС„Р»СЏС†РёСЋ'
 
---вакцина
+--РІР°РєС†РёРЅР°
 create procedure insert_vaccination
 @vaccinationid int,
 @diseasename varchar(20),
@@ -115,36 +116,23 @@ as
 insert vaccination(vaccinationid, diseasename, vaccinationname)
 values(@vaccinationid, @diseasename, @vaccinationname)
 
-exec insert_vaccination @vaccinationid = 101, @diseasename = 'отраление', @vaccinationname = 'мусорипил'
-exec insert_vaccination @vaccinationid = 102, @diseasename = 'простуда', @vaccinationname = 'хлорозалам'
-exec insert_vaccination @vaccinationid = 103, @diseasename = 'бешенство', @vaccinationname = 'фриолепт'
+exec insert_vaccination @vaccinationid = 101, @diseasename = 'РѕС‚СЂР°Р»РµРЅРёРµ', @vaccinationname = 'РјСѓСЃРѕСЂРёРїРёР»'
+exec insert_vaccination @vaccinationid = 102, @diseasename = 'РїСЂРѕСЃС‚СѓРґР°', @vaccinationname = 'С…Р»РѕСЂРѕР·Р°Р»Р°Рј'
+exec insert_vaccination @vaccinationid = 103, @diseasename = 'Р±РµС€РµРЅСЃС‚РІРѕ', @vaccinationname = 'С„СЂРёРѕР»РµРїС‚'
 
---корзина
+--РєРѕСЂР·РёРЅР°
 create procedure insert_basket
 @basketid int,
 @animalid int,
 @stockid int,
-@supplierid int,
 @numberofunits int,
 @vaccinationid int
 as
-insert basket(basketid, animalid, stockid, supplierid, numberofunits, vaccinationid)
-values(@basketid, @animalid, @stockid, @supplierid, @numberofunits, @vaccinationid)
+insert basket(basketid, animalid, stockid, numberofunits, vaccinationid)
+values(@basketid, @animalid, @stockid, @numberofunits, @vaccinationid)
+exec insert_basket @basketid = 101, @animalid = 101, @stockid = 104, @numberofunits = 3, @vaccinationid = 101
 
-exec insert_basket @basketid = 101, @animalid = 101, @stockid = 104,
-@supplierid = 101, @numberofunits = 3, @vaccinationid = 101
-
---адрес
-create procedure insert_adress
-@adressid int,
-@officeid int
-as
-insert adress(adressid, officeid)
-values(@adressid, @officeid)
-
-exec insert_adress @adressid = 101, @officeid = 101
-
---города
+--РіРѕСЂРѕРґР°
 create procedure insert_cities
 @citiesid  int,
 @citname varchar(32)
@@ -152,10 +140,10 @@ as
 insert cities(citiesid, citname)
 values(@citiesid, @citname)
 
-exec insert_cities @citiesid = 101, @citname = 'Одесса'
-exec insert_cities @citiesid = 102, @citname = 'Киев'
+exec insert_cities @citiesid = 101, @citname = 'РћРґРµСЃСЃР°'
+exec insert_cities @citiesid = 102, @citname = 'РљРёРµРІ'
 
---точки выдачи
+--С‚РѕС‡РєРё РІС‹РґР°С‡Рё
 create procedure insert_office
 @officeid int,
 @numberOffice int,
@@ -166,20 +154,26 @@ as
 insert office(officeid, numberOffice, street, numstreet, cityid)
 values(@officeid, @numberOffice, @street, @numstreet, @cityid)
 
-exec insert_office @officeid = 101, @numberOffice = 23, @street = 'княжеская', @numstreet = 6, @cityid = 101
-exec insert_office @officeid = 102, @numberOffice = 25, @street = 'рижская', @numstreet = 8, @cityid = 102
+exec insert_office @officeid = 101, @numberOffice = 23, @street = 'РєРЅСЏР¶РµСЃРєР°СЏ', @numstreet = 6, @cityid = 101
+exec insert_office @officeid = 102, @numberOffice = 25, @street = 'СЂРёР¶СЃРєР°СЏ', @numstreet = 8, @cityid = 102
 
---заказы
+create procedure insert_basketorder
+@id int,
+@ordernumber int,
+@basketid int
+as
+insert basketorder(id, ordernumber, basketid)
+values(@id, @ordernumber, @basketid)
+
+exec insert_basketorder @id = 101, @ordernumber = 101, @basketid = 101
+--Р·Р°РєР°Р·С‹
 create procedure insert_orders
 @ordernumber int,
-@basketid int,
 @customerid int,
-@animalsid int,
 @staffid int,
-@adressid int
+@officeid int
 as
-insert orders(ordernumber, basketid, customerid, animalsid, staffid, adressid)
-values(@ordernumber, @basketid, @customerid, @animalsid, @staffid, @adressid)
-
-exec insert_orders @ordernumber = 101, @basketid = 101, 
-@customerid = 101, @animalsid = 101, @staffid = 101, @adressid = 101
+insert orders(ordernumber, customerid, staffid, officeid)
+values(@ordernumber, @customerid ,@staffid, @officeid)
+exec insert_orders @ordernumber = 101, 
+@customerid = 101,  @staffid = 101, @officeid = 101
