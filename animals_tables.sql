@@ -19,7 +19,9 @@ create table animals --животные
   animalsinstructs varchar(100) not null,
   vetcertificate varchar(20),
   units int not null,
+  supplierid int
   
+  foreign key(supplierid) references supplier(supplierid),
   primary key(animalsid)
 );
 
@@ -48,13 +50,6 @@ create table office
 	cityid int not null 
 	foreign key references cities(citiesid)
 );
-
-create table adress
-(
-	adressid int not null primary key,
-	officeid int not null,
-	foreign key(officeid) references office(officeid),
-)
 
 create table staff --продавец
 (
@@ -98,29 +93,37 @@ create table basket --корзина
    basketid int not null,
    animalid int not null,
    stockid int,
-   supplierid int,
+   
    numberofunits int not null,
    vaccinationid int not null,
 
    primary key(basketid),
-   foreign key(supplierid) references supplier(supplierid),
+   
    foreign key(animalid) references animals(animalsid),
    foreign key(stockid) references stock(stockid),
    foreign key(vaccinationid) references vaccination(vaccinationid)
 );
-create table orders --заказы
+
+create table basketorder
+(
+	id int not null primary key,
+	ordernumber int not null,
+	basketid int not null
+
+	foreign key(ordernumber) references orders(ordernumber),
+	foreign key(basketid) references basket(basketid)
+);
+
+--drop table animals
+create table orders --заказы 
 (
   ordernumber int not null,
-  basketid int not null,
-  customerid int not null,
-  animalsid int,
-  staffid int not null,
-  adressid int not null,
+  customerid int  null,
+  staffid int  null,
+  officeid int  null,
 
   primary key(ordernumber),
-  foreign key(staffid) references staff(staffid),
-  foreign key(basketid) references basket(basketid),
-  foreign key(customerid) references customer(customerid),
-  foreign key(animalsid) references animals(animalsid),
-  foreign key(adressid) references adress(adressid)
+  foreign key(staffid) references staff(staffid) on delete set null on update cascade,
+  foreign key(customerid) references customer(customerid) on delete set null on update cascade,
+  foreign key(officeid) references office(officeid) on delete set null on update cascade
 );
